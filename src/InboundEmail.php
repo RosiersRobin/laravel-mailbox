@@ -22,6 +22,7 @@ class InboundEmail extends Model
 
     protected $fillable = [
         'message',
+        'spam_score',
     ];
 
     protected static function boot()
@@ -33,10 +34,11 @@ class InboundEmail extends Model
         });
     }
 
-    public static function fromMessage($message)
+    public static function fromMessage($message, $spam_score)
     {
         return new static([
             'message' => $message,
+            'spam_score' => $spam_score,
         ]);
     }
 
@@ -175,5 +177,10 @@ class InboundEmail extends Model
     public function isValid(): bool
     {
         return $this->from() !== '' && ($this->isText() || $this->isHtml());
+    }
+
+    public function spamScore()
+    {
+        return $this->spam_score;
     }
 }
