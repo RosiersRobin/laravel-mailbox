@@ -99,6 +99,16 @@ class InboundEmail extends Model
         return '';
     }
 
+    public function spamScore(): float
+    {
+        return $this->spam_score;
+    }
+
+    public function spamReport(): string
+    {
+        return $this->spam_report;
+    }
+
     /**
      * @return AddressPart[]
      */
@@ -127,7 +137,7 @@ class InboundEmail extends Model
     /**
      * @return MessagePart[]
      */
-    public function attachments()
+    public function attachments(): array
     {
         return $this->message()->getAllAttachmentParts();
     }
